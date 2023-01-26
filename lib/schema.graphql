@@ -1,0 +1,43 @@
+type Message {
+  id: UUID!
+  creatorId: String!
+  message: String!
+  secretId: UUID!
+  creator: User!
+}
+
+type Mutation {
+  signup(name: String!): User!
+  createSecret(title: String!, message: String!): Secret!
+  createMessage(secretId: UUID!, message: String!): Message!
+}
+
+type Query {
+  user: User
+  secret(secretId: UUID!): Secret!
+}
+
+type Secret {
+  id: UUID!
+  title: String!
+  creatorId: String!
+  limitNumber: Int
+  creator: User!
+  messages: [Message!]!
+}
+
+# A UUID is a unique 128-bit number, stored as 16 octets. UUIDs are parsed as
+# Strings within GraphQL. UUIDs are used to assign unique identifiers to
+# entities without requiring a central allocating authority.
+#
+# # References
+#
+# * [Wikipedia: Universally Unique Identifier](http://en.wikipedia.org/wiki/Universally_unique_identifier)
+# * [RFC4122: A Universally Unique IDentifier (UUID) URN Namespace](http://tools.ietf.org/html/rfc4122)
+scalar UUID
+
+type User {
+  id: String!
+  name: String!
+  secrets: [Secret!]!
+}

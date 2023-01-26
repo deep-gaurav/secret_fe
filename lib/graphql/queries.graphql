@@ -1,0 +1,61 @@
+fragment UserFields on User{
+  name
+  id
+}
+fragment MessageFields on Message{
+  id
+  creatorId
+  secretId
+  message
+  creator {
+    ...UserFields
+  }
+}
+
+fragment SecretFields on Secret{
+  id
+  title
+  creatorId
+  creator {
+    ...UserFields
+  }
+  limitNumber
+  messages{
+    ...MessageFields
+  }
+}
+
+
+
+query getUser{
+  user{
+    ...UserFields,
+    secrets{
+      ...SecretFields
+    }
+  }
+}
+
+query getSecret($id:UUID!){
+  secret(secretId:$id){
+    ...SecretFields,
+  }
+}
+
+mutation signUp($name:String!){
+  signup(name:$name){
+    ...UserFields
+  }
+}
+
+mutation createSecret($title:String!, $message:String!){
+  createSecret(title:$title, message:$message){
+    ...SecretFields
+  }
+}
+
+mutation createMessage($secretId:UUID!, $message:String!){
+  createMessage(secretId:$secretId, message:$message){
+    ...MessageFields
+  }
+}

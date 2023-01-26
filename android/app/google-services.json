@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "670924580558",
+    "project_id": "secret-fire",
+    "storage_bucket": "secret-fire.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670924580558:android:efb53ecc1d7a382b75529f",
+        "android_client_info": {
+          "package_name": "com.example.secret_fe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670924580558-vna6u1nhu0hf68o19fpt5dtfdm6014h0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5gqAnAW3hWTWd78X_PC2aFaufUBNACV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670924580558-vna6u1nhu0hf68o19fpt5dtfdm6014h0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "670924580558-photlnlnqdr1ll43h254jr6bmi8bptmc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.secretFe"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
