@@ -15,10 +15,8 @@ GetUser$Query$User$Secret _$GetUser$Query$User$SecretFromJson(
       ..creator = SecretFieldsMixin$User.fromJson(
           json['creator'] as Map<String, dynamic>)
       ..limitNumber = json['limitNumber'] as int?
-      ..messages = (json['messages'] as List<dynamic>)
-          .map((e) =>
-              SecretFieldsMixin$Message.fromJson(e as Map<String, dynamic>))
-          .toList();
+      ..messages = SecretFieldsMixin$SecretMessages.fromJson(
+          json['messages'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$GetUser$Query$User$SecretToJson(
         GetUser$Query$User$Secret instance) =>
@@ -28,7 +26,7 @@ Map<String, dynamic> _$GetUser$Query$User$SecretToJson(
       'creatorId': instance.creatorId,
       'creator': instance.creator.toJson(),
       'limitNumber': instance.limitNumber,
-      'messages': instance.messages.map((e) => e.toJson()).toList(),
+      'messages': instance.messages.toJson(),
     };
 
 GetUser$Query$User _$GetUser$Query$UserFromJson(Map<String, dynamic> json) =>
@@ -71,24 +69,69 @@ Map<String, dynamic> _$SecretFieldsMixin$UserToJson(
       'id': instance.id,
     };
 
-SecretFieldsMixin$Message _$SecretFieldsMixin$MessageFromJson(
-        Map<String, dynamic> json) =>
-    SecretFieldsMixin$Message()
-      ..id = json['id'] as String
-      ..creatorId = json['creatorId'] as String
-      ..secretId = json['secretId'] as String
-      ..message = json['message'] as String
-      ..creator = MessageFieldsMixin$User.fromJson(
-          json['creator'] as Map<String, dynamic>);
+SecretFieldsMixin$SecretMessages$LockedMessages
+    _$SecretFieldsMixin$SecretMessages$LockedMessagesFromJson(
+            Map<String, dynamic> json) =>
+        SecretFieldsMixin$SecretMessages$LockedMessages()
+          ..$$typename = json['__typename'] as String?
+          ..reason = json['reason'] as String;
 
-Map<String, dynamic> _$SecretFieldsMixin$MessageToJson(
-        SecretFieldsMixin$Message instance) =>
+Map<String, dynamic> _$SecretFieldsMixin$SecretMessages$LockedMessagesToJson(
+        SecretFieldsMixin$SecretMessages$LockedMessages instance) =>
+    <String, dynamic>{
+      '__typename': instance.$$typename,
+      'reason': instance.reason,
+    };
+
+SecretFieldsMixin$SecretMessages$UnlockedMessages$Message
+    _$SecretFieldsMixin$SecretMessages$UnlockedMessages$MessageFromJson(
+            Map<String, dynamic> json) =>
+        SecretFieldsMixin$SecretMessages$UnlockedMessages$Message()
+          ..id = json['id'] as String
+          ..creatorId = json['creatorId'] as String
+          ..secretId = json['secretId'] as String
+          ..message = json['message'] as String
+          ..creator = MessageFieldsMixin$User.fromJson(
+              json['creator'] as Map<String, dynamic>);
+
+Map<String,
+    dynamic> _$SecretFieldsMixin$SecretMessages$UnlockedMessages$MessageToJson(
+        SecretFieldsMixin$SecretMessages$UnlockedMessages$Message instance) =>
     <String, dynamic>{
       'id': instance.id,
       'creatorId': instance.creatorId,
       'secretId': instance.secretId,
       'message': instance.message,
       'creator': instance.creator.toJson(),
+    };
+
+SecretFieldsMixin$SecretMessages$UnlockedMessages
+    _$SecretFieldsMixin$SecretMessages$UnlockedMessagesFromJson(
+            Map<String, dynamic> json) =>
+        SecretFieldsMixin$SecretMessages$UnlockedMessages()
+          ..$$typename = json['__typename'] as String?
+          ..messages = (json['messages'] as List<dynamic>)
+              .map((e) =>
+                  SecretFieldsMixin$SecretMessages$UnlockedMessages$Message
+                      .fromJson(e as Map<String, dynamic>))
+              .toList();
+
+Map<String, dynamic> _$SecretFieldsMixin$SecretMessages$UnlockedMessagesToJson(
+        SecretFieldsMixin$SecretMessages$UnlockedMessages instance) =>
+    <String, dynamic>{
+      '__typename': instance.$$typename,
+      'messages': instance.messages.map((e) => e.toJson()).toList(),
+    };
+
+SecretFieldsMixin$SecretMessages _$SecretFieldsMixin$SecretMessagesFromJson(
+        Map<String, dynamic> json) =>
+    SecretFieldsMixin$SecretMessages()
+      ..$$typename = json['__typename'] as String?;
+
+Map<String, dynamic> _$SecretFieldsMixin$SecretMessagesToJson(
+        SecretFieldsMixin$SecretMessages instance) =>
+    <String, dynamic>{
+      '__typename': instance.$$typename,
     };
 
 MessageFieldsMixin$User _$MessageFieldsMixin$UserFromJson(
@@ -113,10 +156,8 @@ GetSecret$Query$Secret _$GetSecret$Query$SecretFromJson(
       ..creator = SecretFieldsMixin$User.fromJson(
           json['creator'] as Map<String, dynamic>)
       ..limitNumber = json['limitNumber'] as int?
-      ..messages = (json['messages'] as List<dynamic>)
-          .map((e) =>
-              SecretFieldsMixin$Message.fromJson(e as Map<String, dynamic>))
-          .toList();
+      ..messages = SecretFieldsMixin$SecretMessages.fromJson(
+          json['messages'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$GetSecret$Query$SecretToJson(
         GetSecret$Query$Secret instance) =>
@@ -126,7 +167,7 @@ Map<String, dynamic> _$GetSecret$Query$SecretToJson(
       'creatorId': instance.creatorId,
       'creator': instance.creator.toJson(),
       'limitNumber': instance.limitNumber,
-      'messages': instance.messages.map((e) => e.toJson()).toList(),
+      'messages': instance.messages.toJson(),
     };
 
 GetSecret$Query _$GetSecret$QueryFromJson(Map<String, dynamic> json) =>
@@ -171,10 +212,8 @@ CreateSecret$Mutation$Secret _$CreateSecret$Mutation$SecretFromJson(
       ..creator = SecretFieldsMixin$User.fromJson(
           json['creator'] as Map<String, dynamic>)
       ..limitNumber = json['limitNumber'] as int?
-      ..messages = (json['messages'] as List<dynamic>)
-          .map((e) =>
-              SecretFieldsMixin$Message.fromJson(e as Map<String, dynamic>))
-          .toList();
+      ..messages = SecretFieldsMixin$SecretMessages.fromJson(
+          json['messages'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$CreateSecret$Mutation$SecretToJson(
         CreateSecret$Mutation$Secret instance) =>
@@ -184,7 +223,7 @@ Map<String, dynamic> _$CreateSecret$Mutation$SecretToJson(
       'creatorId': instance.creatorId,
       'creator': instance.creator.toJson(),
       'limitNumber': instance.limitNumber,
-      'messages': instance.messages.map((e) => e.toJson()).toList(),
+      'messages': instance.messages.toJson(),
     };
 
 CreateSecret$Mutation _$CreateSecret$MutationFromJson(

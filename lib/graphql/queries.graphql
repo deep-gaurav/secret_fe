@@ -21,7 +21,15 @@ fragment SecretFields on Secret{
   }
   limitNumber
   messages{
-    ...MessageFields
+    __typename
+    ... on LockedMessages{
+      reason
+    }
+    ... on UnlockedMessages {
+      messages{
+        ...MessageFields
+      }
+    }
   }
 }
 
@@ -36,7 +44,7 @@ query getUser{
   }
 }
 
-query getSecret($id:UUID!){
+query getSecret($id:String!){
   secret(secretId:$id){
     ...SecretFields,
   }
@@ -54,7 +62,7 @@ mutation createSecret($title:String!, $message:String!){
   }
 }
 
-mutation createMessage($secretId:UUID!, $message:String!){
+mutation createMessage($secretId:String!, $message:String!){
   createMessage(secretId:$secretId, message:$message){
     ...MessageFields
   }

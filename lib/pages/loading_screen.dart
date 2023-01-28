@@ -40,9 +40,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
       var result = await mainApp.client.execute(GetUserQuery());
       if (result.data?.user == null) {
-        context.go("/signup", extra: widget.redirect);
+        context.go("/signup?redirect=${widget.redirect}");
       } else {
         mainApp.user = result.data!.user;
+        mainApp.secrets = Map.fromEntries(
+          result.data!.user?.secrets
+                  .map((secret) => MapEntry(secret.id, secret)) ??
+              [],
+        );
         context.go(widget.redirect ?? "/");
       }
     }

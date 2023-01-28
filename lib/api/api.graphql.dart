@@ -12,7 +12,7 @@ mixin SecretFieldsMixin {
   late String creatorId;
   late SecretFieldsMixin$User creator;
   int? limitNumber;
-  late List<SecretFieldsMixin$Message> messages;
+  late SecretFieldsMixin$SecretMessages messages;
 }
 mixin UserFieldsMixin {
   late String name;
@@ -87,17 +87,91 @@ class SecretFieldsMixin$User extends JsonSerializable
 }
 
 @JsonSerializable(explicitToJson: true)
-class SecretFieldsMixin$Message extends JsonSerializable
-    with EquatableMixin, MessageFieldsMixin {
-  SecretFieldsMixin$Message();
+class SecretFieldsMixin$SecretMessages$LockedMessages
+    extends SecretFieldsMixin$SecretMessages with EquatableMixin {
+  SecretFieldsMixin$SecretMessages$LockedMessages();
 
-  factory SecretFieldsMixin$Message.fromJson(Map<String, dynamic> json) =>
-      _$SecretFieldsMixin$MessageFromJson(json);
+  factory SecretFieldsMixin$SecretMessages$LockedMessages.fromJson(
+          Map<String, dynamic> json) =>
+      _$SecretFieldsMixin$SecretMessages$LockedMessagesFromJson(json);
+
+  late String reason;
+
+  @override
+  List<Object?> get props => [reason];
+  @override
+  Map<String, dynamic> toJson() =>
+      _$SecretFieldsMixin$SecretMessages$LockedMessagesToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class SecretFieldsMixin$SecretMessages$UnlockedMessages$Message
+    extends JsonSerializable with EquatableMixin, MessageFieldsMixin {
+  SecretFieldsMixin$SecretMessages$UnlockedMessages$Message();
+
+  factory SecretFieldsMixin$SecretMessages$UnlockedMessages$Message.fromJson(
+          Map<String, dynamic> json) =>
+      _$SecretFieldsMixin$SecretMessages$UnlockedMessages$MessageFromJson(json);
 
   @override
   List<Object?> get props => [id, creatorId, secretId, message, creator];
   @override
-  Map<String, dynamic> toJson() => _$SecretFieldsMixin$MessageToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$SecretFieldsMixin$SecretMessages$UnlockedMessages$MessageToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class SecretFieldsMixin$SecretMessages$UnlockedMessages
+    extends SecretFieldsMixin$SecretMessages with EquatableMixin {
+  SecretFieldsMixin$SecretMessages$UnlockedMessages();
+
+  factory SecretFieldsMixin$SecretMessages$UnlockedMessages.fromJson(
+          Map<String, dynamic> json) =>
+      _$SecretFieldsMixin$SecretMessages$UnlockedMessagesFromJson(json);
+
+  late List<SecretFieldsMixin$SecretMessages$UnlockedMessages$Message> messages;
+
+  @override
+  List<Object?> get props => [messages];
+  @override
+  Map<String, dynamic> toJson() =>
+      _$SecretFieldsMixin$SecretMessages$UnlockedMessagesToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class SecretFieldsMixin$SecretMessages extends JsonSerializable
+    with EquatableMixin {
+  SecretFieldsMixin$SecretMessages();
+
+  factory SecretFieldsMixin$SecretMessages.fromJson(Map<String, dynamic> json) {
+    switch (json['__typename'].toString()) {
+      case r'LockedMessages':
+        return SecretFieldsMixin$SecretMessages$LockedMessages.fromJson(json);
+      case r'UnlockedMessages':
+        return SecretFieldsMixin$SecretMessages$UnlockedMessages.fromJson(json);
+      default:
+    }
+    return _$SecretFieldsMixin$SecretMessagesFromJson(json);
+  }
+
+  @JsonKey(name: '__typename')
+  String? $$typename;
+
+  @override
+  List<Object?> get props => [$$typename];
+  @override
+  Map<String, dynamic> toJson() {
+    switch ($$typename) {
+      case r'LockedMessages':
+        return (this as SecretFieldsMixin$SecretMessages$LockedMessages)
+            .toJson();
+      case r'UnlockedMessages':
+        return (this as SecretFieldsMixin$SecretMessages$UnlockedMessages)
+            .toJson();
+      default:
+    }
+    return _$SecretFieldsMixin$SecretMessagesToJson(this);
+  }
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -321,10 +395,52 @@ final GET_USER_QUERY_DOCUMENT = DocumentNode(definitions: [
         arguments: [],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
-          FragmentSpreadNode(
-            name: NameNode(value: 'MessageFields'),
+          FieldNode(
+            name: NameNode(value: '__typename'),
+            alias: null,
+            arguments: [],
             directives: [],
-          )
+            selectionSet: null,
+          ),
+          InlineFragmentNode(
+            typeCondition: TypeConditionNode(
+                on: NamedTypeNode(
+              name: NameNode(value: 'LockedMessages'),
+              isNonNull: false,
+            )),
+            directives: [],
+            selectionSet: SelectionSetNode(selections: [
+              FieldNode(
+                name: NameNode(value: 'reason'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              )
+            ]),
+          ),
+          InlineFragmentNode(
+            typeCondition: TypeConditionNode(
+                on: NamedTypeNode(
+              name: NameNode(value: 'UnlockedMessages'),
+              isNonNull: false,
+            )),
+            directives: [],
+            selectionSet: SelectionSetNode(selections: [
+              FieldNode(
+                name: NameNode(value: 'messages'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: SelectionSetNode(selections: [
+                  FragmentSpreadNode(
+                    name: NameNode(value: 'MessageFields'),
+                    directives: [],
+                  )
+                ]),
+              )
+            ]),
+          ),
         ]),
       ),
     ]),
@@ -448,7 +564,7 @@ final GET_SECRET_QUERY_DOCUMENT = DocumentNode(definitions: [
       VariableDefinitionNode(
         variable: VariableNode(name: NameNode(value: 'id')),
         type: NamedTypeNode(
-          name: NameNode(value: 'UUID'),
+          name: NameNode(value: 'String'),
           isNonNull: true,
         ),
         defaultValue: DefaultValueNode(value: null),
@@ -531,10 +647,52 @@ final GET_SECRET_QUERY_DOCUMENT = DocumentNode(definitions: [
         arguments: [],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
-          FragmentSpreadNode(
-            name: NameNode(value: 'MessageFields'),
+          FieldNode(
+            name: NameNode(value: '__typename'),
+            alias: null,
+            arguments: [],
             directives: [],
-          )
+            selectionSet: null,
+          ),
+          InlineFragmentNode(
+            typeCondition: TypeConditionNode(
+                on: NamedTypeNode(
+              name: NameNode(value: 'LockedMessages'),
+              isNonNull: false,
+            )),
+            directives: [],
+            selectionSet: SelectionSetNode(selections: [
+              FieldNode(
+                name: NameNode(value: 'reason'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              )
+            ]),
+          ),
+          InlineFragmentNode(
+            typeCondition: TypeConditionNode(
+                on: NamedTypeNode(
+              name: NameNode(value: 'UnlockedMessages'),
+              isNonNull: false,
+            )),
+            directives: [],
+            selectionSet: SelectionSetNode(selections: [
+              FieldNode(
+                name: NameNode(value: 'messages'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: SelectionSetNode(selections: [
+                  FragmentSpreadNode(
+                    name: NameNode(value: 'MessageFields'),
+                    directives: [],
+                  )
+                ]),
+              )
+            ]),
+          ),
         ]),
       ),
     ]),
@@ -861,10 +1019,52 @@ final CREATE_SECRET_MUTATION_DOCUMENT = DocumentNode(definitions: [
         arguments: [],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
-          FragmentSpreadNode(
-            name: NameNode(value: 'MessageFields'),
+          FieldNode(
+            name: NameNode(value: '__typename'),
+            alias: null,
+            arguments: [],
             directives: [],
-          )
+            selectionSet: null,
+          ),
+          InlineFragmentNode(
+            typeCondition: TypeConditionNode(
+                on: NamedTypeNode(
+              name: NameNode(value: 'LockedMessages'),
+              isNonNull: false,
+            )),
+            directives: [],
+            selectionSet: SelectionSetNode(selections: [
+              FieldNode(
+                name: NameNode(value: 'reason'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              )
+            ]),
+          ),
+          InlineFragmentNode(
+            typeCondition: TypeConditionNode(
+                on: NamedTypeNode(
+              name: NameNode(value: 'UnlockedMessages'),
+              isNonNull: false,
+            )),
+            directives: [],
+            selectionSet: SelectionSetNode(selections: [
+              FieldNode(
+                name: NameNode(value: 'messages'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: SelectionSetNode(selections: [
+                  FragmentSpreadNode(
+                    name: NameNode(value: 'MessageFields'),
+                    directives: [],
+                  )
+                ]),
+              )
+            ]),
+          ),
         ]),
       ),
     ]),
@@ -997,7 +1197,7 @@ final CREATE_MESSAGE_MUTATION_DOCUMENT = DocumentNode(definitions: [
       VariableDefinitionNode(
         variable: VariableNode(name: NameNode(value: 'secretId')),
         type: NamedTypeNode(
-          name: NameNode(value: 'UUID'),
+          name: NameNode(value: 'String'),
           isNonNull: true,
         ),
         defaultValue: DefaultValueNode(value: null),

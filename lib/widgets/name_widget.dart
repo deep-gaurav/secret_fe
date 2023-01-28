@@ -12,9 +12,12 @@ class NameWidget extends StatelessWidget {
     return Hero(
       tag: 'name',
       flightShuttleBuilder: flightShuttleBuilder,
-      child: Container(
-        margin: const EdgeInsets.only(right: 20),
-        child: Text(MyApp.of(context).user!.name),
+      child: Material(
+        color: Colors.transparent,
+        child: Container(
+          margin: const EdgeInsets.only(right: 20),
+          child: Text(MyApp.of(context).user!.name),
+        ),
       ),
     );
   }

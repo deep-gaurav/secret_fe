@@ -27,23 +27,26 @@ class SignupScreen extends StatelessWidget {
           child: Hero(
             tag: 'name',
             flightShuttleBuilder: flightShuttleBuilder,
-            child: TextFormField(
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return "Name is required";
-                } else {
-                  return null;
-                }
-              },
-              decoration: const InputDecoration(
-                hintText: "Name Please?",
-                border: InputBorder.none,
+            child: Material(
+              color: Colors.transparent,
+              child: TextFormField(
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return "Name is required";
+                  } else {
+                    return null;
+                  }
+                },
+                decoration: const InputDecoration(
+                  hintText: "Name Please?",
+                  border: InputBorder.none,
+                ),
+                textAlign: TextAlign.center,
+                style: Theme.of(context).primaryTextTheme.headlineLarge,
+                onFieldSubmitted: (value) {
+                  signup(context, value);
+                },
               ),
-              textAlign: TextAlign.center,
-              style: Theme.of(context).primaryTextTheme.headlineLarge,
-              onFieldSubmitted: (value) {
-                signup(context, value);
-              },
             ),
           ),
         ),
