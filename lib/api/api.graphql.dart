@@ -306,6 +306,22 @@ class CreateMessage$Mutation extends JsonSerializable with EquatableMixin {
   Map<String, dynamic> toJson() => _$CreateMessage$MutationToJson(this);
 }
 
+@JsonSerializable(explicitToJson: true)
+class SetNotificationToken$Mutation extends JsonSerializable
+    with EquatableMixin {
+  SetNotificationToken$Mutation();
+
+  factory SetNotificationToken$Mutation.fromJson(Map<String, dynamic> json) =>
+      _$SetNotificationToken$MutationFromJson(json);
+
+  late String setNotificationToken;
+
+  @override
+  List<Object?> get props => [setNotificationToken];
+  @override
+  Map<String, dynamic> toJson() => _$SetNotificationToken$MutationToJson(this);
+}
+
 final GET_USER_QUERY_DOCUMENT_OPERATION_NAME = 'getUser';
 final GET_USER_QUERY_DOCUMENT = DocumentNode(definitions: [
   OperationDefinitionNode(
@@ -1334,4 +1350,77 @@ class CreateMessageMutation
   @override
   CreateMessage$Mutation parse(Map<String, dynamic> json) =>
       CreateMessage$Mutation.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class SetNotificationTokenArguments extends JsonSerializable
+    with EquatableMixin {
+  SetNotificationTokenArguments({required this.token});
+
+  @override
+  factory SetNotificationTokenArguments.fromJson(Map<String, dynamic> json) =>
+      _$SetNotificationTokenArgumentsFromJson(json);
+
+  late String token;
+
+  @override
+  List<Object?> get props => [token];
+  @override
+  Map<String, dynamic> toJson() => _$SetNotificationTokenArgumentsToJson(this);
+}
+
+final SET_NOTIFICATION_TOKEN_MUTATION_DOCUMENT_OPERATION_NAME =
+    'setNotificationToken';
+final SET_NOTIFICATION_TOKEN_MUTATION_DOCUMENT = DocumentNode(definitions: [
+  OperationDefinitionNode(
+    type: OperationType.mutation,
+    name: NameNode(value: 'setNotificationToken'),
+    variableDefinitions: [
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'token')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: true,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      )
+    ],
+    directives: [],
+    selectionSet: SelectionSetNode(selections: [
+      FieldNode(
+        name: NameNode(value: 'setNotificationToken'),
+        alias: null,
+        arguments: [
+          ArgumentNode(
+            name: NameNode(value: 'token'),
+            value: VariableNode(name: NameNode(value: 'token')),
+          )
+        ],
+        directives: [],
+        selectionSet: null,
+      )
+    ]),
+  )
+]);
+
+class SetNotificationTokenMutation extends GraphQLQuery<
+    SetNotificationToken$Mutation, SetNotificationTokenArguments> {
+  SetNotificationTokenMutation({required this.variables});
+
+  @override
+  final DocumentNode document = SET_NOTIFICATION_TOKEN_MUTATION_DOCUMENT;
+
+  @override
+  final String operationName =
+      SET_NOTIFICATION_TOKEN_MUTATION_DOCUMENT_OPERATION_NAME;
+
+  @override
+  final SetNotificationTokenArguments variables;
+
+  @override
+  List<Object?> get props => [document, operationName, variables];
+  @override
+  SetNotificationToken$Mutation parse(Map<String, dynamic> json) =>
+      SetNotificationToken$Mutation.fromJson(json);
 }

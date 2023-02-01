@@ -2,12 +2,15 @@ import 'dart:convert';
 
 import 'package:artemis/artemis.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:secret_fe/api/api.dart';
 import 'package:secret_fe/main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer' as develop;
+
+import 'package:secret_fe/utils/handle_notification.dart';
 
 class LoadingScreen extends StatefulWidget {
   final String? redirect;
@@ -48,7 +51,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   .map((secret) => MapEntry(secret.id, secret)) ??
               [],
         );
+
         context.go(widget.redirect ?? "/");
+        // handleNotification(mainApp);
       }
     }
   }

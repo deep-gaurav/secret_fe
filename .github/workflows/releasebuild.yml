@@ -18,7 +18,7 @@ jobs:
     - uses: subosito/flutter-action@v1
       with:
           channel: 'stable'
-    - run: flutter build web
+    - run: flutter build web --web-renderer=canvaskit --pwa-strategy=none
 
     - uses: montudor/action-zip@v1
       with:

@@ -270,6 +270,17 @@ Map<String, dynamic> _$CreateMessage$MutationToJson(
       'createMessage': instance.createMessage.toJson(),
     };
 
+SetNotificationToken$Mutation _$SetNotificationToken$MutationFromJson(
+        Map<String, dynamic> json) =>
+    SetNotificationToken$Mutation()
+      ..setNotificationToken = json['setNotificationToken'] as String;
+
+Map<String, dynamic> _$SetNotificationToken$MutationToJson(
+        SetNotificationToken$Mutation instance) =>
+    <String, dynamic>{
+      'setNotificationToken': instance.setNotificationToken,
+    };
+
 GetSecretArguments _$GetSecretArgumentsFromJson(Map<String, dynamic> json) =>
     GetSecretArguments(
       id: json['id'] as String,
@@ -316,4 +327,16 @@ Map<String, dynamic> _$CreateMessageArgumentsToJson(
     <String, dynamic>{
       'secretId': instance.secretId,
       'message': instance.message,
+    };
+
+SetNotificationTokenArguments _$SetNotificationTokenArgumentsFromJson(
+        Map<String, dynamic> json) =>
+    SetNotificationTokenArguments(
+      token: json['token'] as String,
+    );
+
+Map<String, dynamic> _$SetNotificationTokenArgumentsToJson(
+        SetNotificationTokenArguments instance) =>
+    <String, dynamic>{
+      'token': instance.token,
     };

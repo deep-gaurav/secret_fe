@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:secret_fe/api/api.dart';
 import 'package:secret_fe/firebase_options.dart';
@@ -26,7 +27,11 @@ final String baseURL = const String.fromEnvironment(
         defaultValue: "",
       );
 
+// final String baseURL = "http://localhost:8000";
+
 void main() async {
+  await GetStorage.init();
+
   var initPath = Uri.base.path;
   print("starting uri is ${Uri.base}");
   print("initPath  $initPath");
@@ -166,5 +171,3 @@ class MyAppState extends State<MyApp> {
     );
   }
 }
-
-class RouteParser extends RouteInformationParser {}

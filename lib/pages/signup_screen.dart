@@ -1,8 +1,11 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:secret_fe/api/api.graphql.dart';
 import 'package:secret_fe/main.dart';
+import 'package:secret_fe/utils/handle_notification.dart';
 import 'package:secret_fe/utils/hero_text_shuttle.dart';
+import 'dart:developer' as develop;
 
 class SignupScreen extends StatelessWidget {
   final String redirect;
@@ -14,7 +17,11 @@ class SignupScreen extends StatelessWidget {
         .execute(SignUpMutation(variables: SignUpArguments(name: name)));
     if (user.data?.signup != null) {
       mainApp.user = user.data!.signup;
+      // ignore: use_build_context_synchronously
+
       context.go(redirect);
+
+      // handleNotification(mainApp);
     }
   }
 

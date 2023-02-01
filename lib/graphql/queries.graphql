@@ -67,3 +67,7 @@ mutation createMessage($secretId:String!, $message:String!){
     ...MessageFields
   }
 }
+
+mutation setNotificationToken($token:String!){
+  setNotificationToken(token:$token)
+}

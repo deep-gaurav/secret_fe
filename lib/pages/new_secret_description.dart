@@ -1,8 +1,10 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gql/schema.dart';
 import 'package:secret_fe/api/api.graphql.dart';
 import 'package:secret_fe/main.dart';
+import 'package:secret_fe/utils/handle_notification.dart';
 import 'package:secret_fe/utils/hero_text_shuttle.dart';
 import 'package:secret_fe/widgets/name_widget.dart';
 
@@ -20,6 +22,27 @@ class _NewSecretDescriptionState extends State<NewSecretDescription> {
   onDone() async {
     var app = MyApp.of(context);
     var router = GoRouter.of(context);
+    var res = await showDialog(
+      context: context,
+      builder: (context) {
+        FirebaseMessaging.instance.requestPermission().then(
+          (value) {
+            Navigator.of(context).pop(value);
+          },
+        );
+        return SimpleDialog(
+          title: const Text('Notification permission'),
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: const Text(
+                  'Grant notification permission to get notification when someone answers your secret'),
+            )
+          ],
+        );
+      },
+    );
+    handleNotification(app);
     var result = await app.client.execute(CreateSecretMutation(
         variables: CreateSecretArguments(
       title: widget.title,
